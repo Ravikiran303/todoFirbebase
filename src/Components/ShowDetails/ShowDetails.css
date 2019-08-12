@@ -1,0 +1,8 @@
+.details img {
+    width: 100px;
+    height: 200px;
+}
+
+.details_div {
+    display: block;
+}
