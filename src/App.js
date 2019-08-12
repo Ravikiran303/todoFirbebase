@@ -1,20 +1,44 @@
 import React from "react";
-import firebase from "firebase";
-
-var firebaseConfig = {
-  apiKey: "AIzaSyBJrva6JPENwznkzeqqIwiCLhIlK-8k3w0",
-  authDomain: "terracetask.firebaseapp.com",
-  databaseURL: "https://terracetask.firebaseio.com",
-  projectId: "terracetask",
-  storageBucket: "",
-  messagingSenderId: "739298815265",
-  appId: "1:739298815265:web:e8909b33947197f7"
-};
-// Initialize Firebase
-firebase.initializeApp(firebaseConfig);
+import {
+  BrowserRouter as Router,
+  Route,
+  Switch,
+  Redirect
+} from "react-router-dom";
+import "../node_modules/bootstrap/dist/css/bootstrap.min.css";
+import Edit from "./Components/EditTask/Edit";
+import Create from "./Components/CreateTask/Create";
+import Show from "./Components/ShowDetails/ShowDetails";
+import SignIn from "./Components/SignIn/Signin";
+import ShowList from "./Components/ShowList/ShowList";
+import ls from "local-storage";
 
 function App() {
-  return <div className="App">App</div>;
+  return (
+    <Router>
+      <div>
+        <Switch>
+          <Route exact path="/" component={SignIn} />
+          <PrivateRoute path="/list" component={ShowList} />
+          <PrivateRoute path="/edit/:id" component={Edit} />
+          <PrivateRoute path="/create" component={Create} />
+          <PrivateRoute path="/show/:id" component={Show} />
+        </Switch>
+      </div>
+    </Router>
+  );
 }
+export const PrivateRoute = ({ component: Component, ...rest }) => (
+  <Route
+    {...rest}
+    render={props =>
+      ls.get("UID") ? (
+        <Component {...props} />
+      ) : (
+        <Redirect to={{ pathname: "/", state: { from: props.location } }} />
+      )
+    }
+  />
+);
 
 export default App;
