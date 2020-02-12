@@ -3,7 +3,7 @@ import firebase from "firebase";
 const settings = { timestampsInSnapshots: true };
 
 var firebaseConfig = {
-  apiKey: "AIzaSyBJrva6JPENwznkzeqqIwiCLhIlK-8k3w0",
+  apiKey: "12345",
   authDomain: "terracetask.firebaseapp.com",
   databaseURL: "https://terracetask.firebaseio.com",
   projectId: "terracetask",
